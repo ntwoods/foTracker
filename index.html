@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
+  />
+  <title>NT Woods • Field Check-In</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <img src="assets/images/logo.jpg" alt="NT Woods" class="logo" />
+    <h1 class="app-title">Field Attendance</h1>
+  </header>
+
+  <main class="page">
+    <!-- Top user / state -->
+    <section class="status-card" id="statusCard">
+      <div class="status-line">
+        <span class="label">Salesperson:</span>
+        <span id="salespersonNameText" class="value">—</span>
+      </div>
+      <div id="checkinSummary" class="summary hidden"></div>
+    </section>
+
+    <!-- Initial actions -->
+    <section id="homeActions" class="actions">
+      <button id="btnCheckIn" class="btn btn-primary">Check-In</button>
+      <!-- Check-Out button appears only after successful Check-In -->
+      <button id="btnCheckOut" class="btn btn-accent hidden">Check-Out</button>
+    </section>
+
+    <!-- Check-In form -->
+    <section id="checkinFormWrap" class="card hidden">
+      <h2 class="card-title">Check-In</h2>
+      <form id="checkinForm" class="form">
+        <div class="form-row">
+          <label for="route">Route</label>
+          <select id="route" name="route" required>
+            <option value="">Loading routes…</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label for="mode">Mode of Travel</label>
+          <select id="mode" name="mode" required>
+            <option value="">Select</option>
+            <option value="Bike">Bike</option>
+            <option value="Bus">Bus</option>
+          </select>
+        </div>
+
+        <!-- Bike-only fields -->
+        <div id="bikeFields" class="group hidden">
+          <div class="form-row">
+            <label for="bikeReading">Bike Odometer Reading</label>
+            <input id="bikeReading" name="bikeReading" type="number" inputmode="numeric" placeholder="e.g. 12458" />
+          </div>
+
+          <div class="form-row">
+            <label for="bikeOdoImage">Odometer Reading Image</label>
+            <!-- Restrict to rear camera where supported -->
+            <input id="bikeOdoImage" name="bikeOdoImage" type="file" accept="image/*" capture="environment" />
+            <small class="hint">Use rear camera. Gallery upload is restricted on most mobile browsers.</small>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" id="cancelCheckin" class="btn btn-ghost">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit Check-In</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Check-Out form -->
+    <section id="checkoutFormWrap" class="card hidden">
+      <h2 class="card-title">Check-Out</h2>
+      <form id="checkoutForm" class="form">
+        <!-- Common fields -->
+        <div class="form-row">
+          <label for="foodExpense">Food Expense (₹)</label>
+          <input id="foodExpense" name="foodExpense" type="number" inputmode="decimal" step="0.01" placeholder="Optional" />
+        </div>
+
+        <div class="form-row">
+          <label for="autoExpense">Auto/Rickshaw Charge (₹)</label>
+          <input id="autoExpense" name="autoExpense" type="number" inputmode="decimal" step="0.01" placeholder="Optional" />
+        </div>
+
+        <!-- Bus-only fields -->
+        <div id="busFields" class="group hidden">
+          <div class="form-row">
+            <label for="busTicketPrice">Bus Ticket Price (₹)</label>
+            <input id="busTicketPrice" name="busTicketPrice" type="number" inputmode="decimal" step="0.01" />
+          </div>
+
+          <div class="form-row">
+            <label for="busTicketImage">Bus Ticket Image</label>
+            <input id="busTicketImage" name="busTicketImage" type="file" accept="image/*" capture="environment" />
+            <small class="hint">Use rear camera.</small>
+          </div>
+        </div>
+
+        <!-- Bike-only fields -->
+        <div id="bikeCheckoutFields" class="group hidden">
+          <div class="form-row">
+            <label for="bikeReadingOut">Bike Odometer Reading (End)</label>
+            <input id="bikeReadingOut" name="bikeReadingOut" type="number" inputmode="numeric" />
+          </div>
+
+          <div class="form-row">
+            <label for="bikeOdoImageOut">Bike Odometer Image (End)</label>
+            <input id="bikeOdoImageOut" name="bikeOdoImageOut" type="file" accept="image/*" capture="environment" />
+            <small class="hint">Use rear camera.</small>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" id="cancelCheckout" class="btn btn-ghost">Cancel</button>
+          <button type="submit" class="btn btn-accent">Submit Check-Out</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="toast" class="toast hidden"></section>
+  </main>
+
+  <footer class="footer">© NT Woods Pvt. Ltd.</footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
