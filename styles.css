@@ -18,17 +18,6 @@ html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); f
   padding: 16px; border-bottom: 1px solid var(--border);
   background: var(--brand); color: white; z-index: 10;
 }
-  .logo-img {
-    max-width: 150px; /* Adjust as per your requirement */
-    width: 100%;
-    height: auto;
-  }
-
-  @media (max-width: 600px) {
-    .logo-img {
-      max-width: 120px; /* Smaller size for mobile screens */
-    }
-  }
 .app-title { font-size: 20px; margin: 0; font-weight: 600; }
 
 .page { padding: 18px; max-width: 680px; margin: 0 auto; }
@@ -104,3 +93,15 @@ input[type="file"]:hover { border-color: var(--brand-2); }
 }
 
 .footer { opacity: 0.8; text-align: center; padding: 20px 0 40px; font-size: 13px; color: var(--muted); }
+
+.logo-img {
+    max-width: 150px; /* Adjust as per your requirement */
+    width: 100%;
+    height: auto;
+  }
+
+  @media (max-width: 600px) {
+    .logo-img {
+      max-width: 120px; /* Smaller size for mobile screens */
+    }
+  }
