@@ -64,6 +64,24 @@ input:focus, select:focus { border-color: var(--brand); box-shadow: 0 0 0 4px va
 
 .form-actions { display: flex; gap: 10px; margin-top: 4px; }
 
+.spinner {
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top: 2px solid #fff;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  margin-right: 6px;
+  vertical-align: middle;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+
 .toast {
   position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
   background: #1a2e22; color: #9ef0b6; padding: 10px 14px; border-radius: 12px;
