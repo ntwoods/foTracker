@@ -161,16 +161,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const res = await fetch(SCRIPT_URL, {
         method: "POST",
+        mode: "no-cors", 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
-      const data = await res.json();
-
-      if (!data.ok) throw new Error(data.error || "Check-In failed");
-
       toast("Check-In recorded");
       checkinFormWrap.classList.add("hidden");
-
       // Refresh open check-in summary & show Check-Out button
       await refreshCurrentCheckinUI();
     } catch (err) {
@@ -218,12 +214,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const res = await fetch(SCRIPT_URL, {
         method: "POST",
+        mode: "no-cors",          
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
-      const data = await res.json();
-      if (!data.ok) throw new Error(data.error || "Check-Out failed");
-
       toast("Check-Out recorded");
       checkoutFormWrap.classList.add("hidden");
       await refreshCurrentCheckinUI();
