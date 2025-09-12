@@ -130,126 +130,126 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-checkinForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const submitBtn = checkinForm.querySelector('button[type="submit"]');
-  const normalText = "Submit Check-In";
-  setButtonLoading(submitBtn, true, normalText);
+  // Submit Check-In
+  checkinForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const submitBtn = checkinForm.querySelector('button[type="submit"]');
+    const normalText = "Submit Check-In";
+    setButtonLoading(submitBtn, true, normalText);
 
-  try {
-    const route = routeSel.value.trim();
-    const mode = modeSel.value;
-    if (!route) throw new Error("Please select Route");
-    if (!mode) throw new Error("Please select Mode");
+    try {
+      const route = routeSel.value.trim();
+      const mode = modeSel.value;
+      if (!route) throw new Error("Please select Route");
+      if (!mode) throw new Error("Please select Mode");
 
-    let bikeReadingVal = "";
-    let bikeOdoBase64 = "";
-    if (mode === "Bike") {
-      bikeReadingVal = (bikeReading.value || "").trim();
-      if (!bikeReadingVal) throw new Error("Bike reading is required");
-      const file = bikeOdoImage.files[0];
-      if (!file) throw new Error("Odometer image is required");
-      bikeOdoBase64 = await fileToBase64(file);
+      let bikeReadingVal = "";
+      let bikeOdoBase64 = "";
+      if (mode === "Bike") {
+        bikeReadingVal = (bikeReading.value || "").trim();
+        if (!bikeReadingVal) throw new Error("Bike reading is required");
+        const file = bikeOdoImage.files[0];
+        if (!file) throw new Error("Odometer image is required");
+        bikeOdoBase64 = await fileToBase64(file);
+      }
+
+      const payload = {
+        action: "checkin",
+        salespersonName,
+        route,
+        mode,
+        bikeReading: bikeReadingVal,
+        bikeOdoImageBase64: bikeOdoBase64
+      };
+
+      await fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors", // 🚀 ignore response
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      toast("Check-In submitted ✅");
+      checkinFormWrap.classList.add("hidden");
+      // Optimistic update
+      await refreshCurrentCheckinUI();
+    } catch (err) {
+      console.error(err);
+      toast("Error: " + err.message);
+    } finally {
+      setButtonLoading(submitBtn, false, normalText);
     }
+  });
 
-    const payload = {
-      action: "checkin",
-      salespersonName,
-      route,
-      mode,
-      bikeReading: bikeReadingVal,
-      bikeOdoImageBase64: bikeOdoBase64
-    };
-
-    await fetch(SCRIPT_URL, {
-      method: "POST",
-      mode: "no-cors",  // 🚀 ignore response
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-
-    toast("Check-In submitted ✅");
-    checkinFormWrap.classList.add("hidden");
-    // Optimistic update: just refresh UI (may not get response back)
-    await refreshCurrentCheckinUI();
-  } catch (err) {
-    console.error(err);
-    toast("Error: " + err.message);
-  } finally {
-    setButtonLoading(submitBtn, false, normalText);
-  }
-});
-
-
-function setButtonLoading(btn, isLoading, textWhenNotLoading) {
-  if (isLoading) {
-    btn.disabled = true;
-    btn.innerHTML = `<span class="spinner"></span> Submitting...`;
-  } else {
-    btn.disabled = false;
-    btn.textContent = textWhenNotLoading;
-  }
-}
-
-   
-   // Submit Check-Out
-checkoutForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  if (!currentOpenCheckin) return;
-
-  const submitBtn = checkoutForm.querySelector('button[type="submit"]');
-  const normalText = "Submit Check-Out";
-  setButtonLoading(submitBtn, true, normalText);
-
-  try {
-    const mode = currentOpenCheckin.mode;
-    const common = {
-      foodExpense: (document.getElementById("foodExpense").value || "").trim(),
-      autoExpense: (document.getElementById("autoExpense").value || "").trim()
-    };
-
-    let extra = {};
-    if (mode === "Bus") {
-      const price = (document.getElementById("busTicketPrice").value || "").trim();
-      if (!price) throw new Error("Bus ticket price is required");
-      const file = document.getElementById("busTicketImage").files[0];
-      if (!file) throw new Error("Bus ticket image is required");
-      const base64 = await fileToBase64(file);
-      extra = { busTicketPrice: price, busTicketImageBase64: base64 };
-    } else if (mode === "Bike") {
-      const readingOut = (bikeReadingOut.value || "").trim();
-      if (!readingOut) throw new Error("Bike end reading is required");
-      const file = bikeOdoImageOut.files[0];
-      if (!file) throw new Error("End odometer image is required");
-      const base64 = await fileToBase64(file);
-      extra = { bikeReadingOut: readingOut, bikeOdoImageOutBase64: base64 };
+  function setButtonLoading(btn, isLoading, textWhenNotLoading) {
+    if (isLoading) {
+      btn.disabled = true;
+      btn.innerHTML = `<span class="spinner"></span> Submitting...`;
+    } else {
+      btn.disabled = false;
+      btn.textContent = textWhenNotLoading;
     }
-
-    const payload = {
-      action: "checkout",
-      salespersonName,
-      checkinId: currentOpenCheckin.checkinId,
-      ...common,
-      ...extra
-    };
-
-    await fetch(SCRIPT_URL, {
-      method: "POST",
-      mode: "no-cors",  // 🚀 ignore response
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-
-    toast("Check-Out submitted ✅");
-    checkoutFormWrap.classList.add("hidden");
-    await refreshCurrentCheckinUI();
-  } catch (err) {
-    console.error(err);
-    toast("Error: " + err.message);
-  } finally {
-    setButtonLoading(submitBtn, false, normalText);
   }
-});
+
+  // Submit Check-Out
+  checkoutForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!currentOpenCheckin) return;
+
+    const submitBtn = checkoutForm.querySelector('button[type="submit"]');
+    const normalText = "Submit Check-Out";
+    setButtonLoading(submitBtn, true, normalText);
+
+    try {
+      const mode = currentOpenCheckin.mode;
+      const common = {
+        foodExpense: (document.getElementById("foodExpense").value || "").trim(),
+        autoExpense: (document.getElementById("autoExpense").value || "").trim()
+      };
+
+      let extra = {};
+      if (mode === "Bus") {
+        const price = (document.getElementById("busTicketPrice").value || "").trim();
+        if (!price) throw new Error("Bus ticket price is required");
+        const file = document.getElementById("busTicketImage").files[0];
+        if (!file) throw new Error("Bus ticket image is required");
+        const base64 = await fileToBase64(file);
+        extra = { busTicketPrice: price, busTicketImageBase64: base64 };
+      } else if (mode === "Bike") {
+        const readingOut = (bikeReadingOut.value || "").trim();
+        if (!readingOut) throw new Error("Bike end reading is required");
+        const file = bikeOdoImageOut.files[0];
+        if (!file) throw new Error("End odometer image is required");
+        const base64 = await fileToBase64(file);
+        extra = { bikeReadingOut: readingOut, bikeOdoImageOutBase64: base64 };
+      }
+
+      const payload = {
+        action: "checkout",
+        salespersonName,
+        checkinId: currentOpenCheckin.checkinId,
+        ...common,
+        ...extra
+      };
+
+      await fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors", // 🚀 ignore response
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      toast("Check-Out submitted ✅");
+      checkoutFormWrap.classList.add("hidden");
+      await refreshCurrentCheckinUI();
+    } catch (err) {
+      console.error(err);
+      toast("Error: " + err.message);
+    } finally {
+      setButtonLoading(submitBtn, false, normalText);
+    }
+  });
+});  // ✅ closes DOMContentLoaded
 
 /* =============================
    Backend Calls
