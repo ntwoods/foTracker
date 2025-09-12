@@ -287,10 +287,9 @@ async function refreshCurrentCheckinUI() {
   const data = await res.json();
 
   currentOpenCheckin = null;
-  btnCheckOut.classList.add("hidden");
-  $("homeActions").classList.remove("hidden");
 
   if (data.ok && data.current) {
+    // User has an open check-in
     currentOpenCheckin = data.current;
 
     const html =
@@ -301,15 +300,15 @@ async function refreshCurrentCheckinUI() {
     checkinSummary.innerHTML = html;
     checkinSummary.classList.remove("hidden");
 
-    // ✅ Rename Check-In button when user already checked in
-    btnCheckIn.textContent = "Modify Check-In";
-
-    // Show Check-Out button
+    // ✅ Show ONLY Check-Out button
+    btnCheckIn.classList.add("hidden");
     btnCheckOut.classList.remove("hidden");
   } else {
+    // No open check-in
     checkinSummary.classList.add("hidden");
 
-    // ✅ Reset back to default if no open check-in
-    btnCheckIn.textContent = "Check-In";
+    // ✅ Show ONLY Check-In button
+    btnCheckIn.classList.remove("hidden");
+    btnCheckOut.classList.add("hidden");
   }
 }
