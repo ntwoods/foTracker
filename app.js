@@ -301,9 +301,15 @@ async function refreshCurrentCheckinUI() {
     checkinSummary.innerHTML = html;
     checkinSummary.classList.remove("hidden");
 
-    // Show Check-Out button only when open check-in exists
+    // ✅ Rename Check-In button when user already checked in
+    btnCheckIn.textContent = "Modify Check-In";
+
+    // Show Check-Out button
     btnCheckOut.classList.remove("hidden");
   } else {
     checkinSummary.classList.add("hidden");
+
+    // ✅ Reset back to default if no open check-in
+    btnCheckIn.textContent = "Check-In";
   }
 }
