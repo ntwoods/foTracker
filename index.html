@@ -58,29 +58,27 @@
             <input id="bikeReading" name="bikeReading" type="number" inputmode="numeric" placeholder="e.g. 12458" />
           </div>
 
-        <div class="form-row">
-          <label for="bikeOdoImage" class="form-label">🏍️ Bike Reading Image</label>
-        
-          <!-- Hidden file input -->
-          <input 
-            id="bikeOdoImage" 
-            name="bikeOdoImage" 
-            type="file" 
-            accept="image/*" 
-            capture="environment" 
-            style="display: none;"
-          />
-        
-          <!-- Custom button -->
-          <button type="button" class="custom-camera-btn" onclick="document.getElementById('bikeOdoImage').click()">
-            📷 Click Picture
-          </button>
-        
-          <small class="hint">
-            Use rear camera. Gallery upload is restricted on most mobile browsers.
-          </small>
-        </div>        
+          <div class="form-row">
+            <label for="bikeOdoImage" class="form-label">🏍️ Bike Reading Image</label>
+            <!-- Hidden file input -->
+            <input 
+              id="bikeOdoImage" 
+              name="bikeOdoImage" 
+              type="file" 
+              accept="image/*" 
+              capture="environment" 
+              style="display: none;"
+            />
+            <!-- Custom button -->
+            <button type="button" class="custom-camera-btn" onclick="document.getElementById('bikeOdoImage').click()">
+              📷 Click Picture
+            </button>
+            <small class="hint">
+              Use rear camera. Gallery upload is restricted on most mobile browsers.
+            </small>
+          </div>        
         </div>
+
         <div class="form-actions">
           <button type="button" id="cancelCheckin" class="btn btn-ghost">Cancel</button>
           <button type="submit" class="btn btn-primary">Submit Check-In</button>
@@ -109,54 +107,55 @@
             <label for="busTicketPrice">Bus Ticket Price (₹)</label>
             <input id="busTicketPrice" name="busTicketPrice" type="number" inputmode="decimal" step="0.01" />
           </div>
-        <div class="form-row">
-            <label for="busTicketImage">🚌Bus Ticket Image</label>
-          <!-- Hidden file input -->
-          <input 
-            id="busTicketImage" 
-            name="busTicketImage"
-            type="file" 
-            accept="image/*" 
-            capture="environment" 
-            style="display: none;"
-          />
-        
-          <!-- Custom button -->
-          <button type="button" class="custom-camera-btn" onclick="document.getElementById('busTicketImage').click()">
-            📷 Click Picture
-          </button>       
-          <small class="hint">
-            Use rear camera. Gallery upload is restricted on most mobile browsers.
-          </small>
+
+          <div class="form-row">
+            <label for="busTicketImage">🚌 Bus Ticket Image</label>
+            <!-- Hidden file input -->
+            <input 
+              id="busTicketImage" 
+              name="busTicketImage"
+              type="file" 
+              accept="image/*" 
+              capture="environment" 
+              style="display: none;"
+            />
+            <!-- Custom button -->
+            <button type="button" class="custom-camera-btn" onclick="document.getElementById('busTicketImage').click()">
+              📷 Click Picture
+            </button>       
+            <small class="hint">
+              Use rear camera. Gallery upload is restricted on most mobile browsers.
+            </small>
+          </div>
         </div>
-        </div>
+
+        <!-- Bike-only checkout fields -->
         <div id="bikeCheckoutFields" class="group hidden">
           <div class="form-row">
             <label for="bikeReadingOut">Bike Odometer Reading (End)</label>
             <input id="bikeReadingOut" name="bikeReadingOut" type="number" inputmode="numeric" />
           </div>
 
-        <div class="form-row">
-            <label for="bikeOdoImageOut">🏍️Bike Odometer Image (End)</label>      
-          <!-- Hidden file input -->
-          <input 
-            id="bikeOdoImageOut" 
-            name="bikeOdoImageOut"
-            type="file" 
-            accept="image/*" 
-            capture="environment" 
-            style="display: none;"
-          />
-        
-          <!-- Custom button -->
-          <button type="button" class="custom-camera-btn" onclick="document.getElementById('bikeOdoImageOut').click()">
-            📷 Click Picture
-          </button>
-        
-          <small class="hint">
-            Use rear camera. Gallery upload is restricted on most mobile browsers.
-          </small>
-        </div>
+          <div class="form-row">
+            <label for="bikeOdoImageOut">🏍️ Bike Odometer Image (End)</label>
+            <!-- Hidden file input -->
+            <input 
+              id="bikeOdoImageOut" 
+              name="bikeOdoImageOut"
+              type="file" 
+              accept="image/*" 
+              capture="environment" 
+              style="display: none;"
+            />
+            <!-- Custom button -->
+            <button type="button" class="custom-camera-btn" onclick="document.getElementById('bikeOdoImageOut').click()">
+              📷 Click Picture
+            </button>
+            <small class="hint">
+              Use rear camera. Gallery upload is restricted on most mobile browsers.
+            </small>
+          </div>
+        </div> <!-- ✅ properly closes bikeCheckoutFields -->
 
         <div class="form-actions">
           <button type="button" id="cancelCheckout" class="btn btn-ghost">Cancel</button>
