@@ -115,3 +115,21 @@ input[type="file"]:hover { border-color: var(--brand-2); }
     max-width: 130px; /* Slightly smaller on mobile */
   }
 }
+
+
+<style>
+.custom-camera-btn {
+  display: inline-block;
+  background-color: #007bff;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.custom-camera-btn:hover {
+  background-color: #0056b3;
+}
+</style>
