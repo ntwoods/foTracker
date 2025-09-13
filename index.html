@@ -58,12 +58,46 @@
             <input id="bikeReading" name="bikeReading" type="number" inputmode="numeric" placeholder="e.g. 12458" />
           </div>
 
-          <div class="form-row">
-            <label for="bikeOdoImage">Odometer Reading Image</label>
-            <!-- Restrict to rear camera where supported -->
-            <input id="bikeOdoImage" name="bikeOdoImage" type="file" accept="image/*" capture="environment" />
-            <small class="hint">Use rear camera. Gallery upload is restricted on most mobile browsers.</small>
-          </div>
+        <div class="form-row">
+          <label for="bikeOdoImage" class="form-label">Odometer Reading Image</label>
+        
+          <!-- Hidden file input -->
+          <input 
+            id="bikeOdoImage" 
+            name="bikeOdoImage" 
+            type="file" 
+            accept="image/*" 
+            capture="environment" 
+            style="display: none;"
+          />
+        
+          <!-- Custom button -->
+          <button type="button" class="custom-camera-btn" onclick="document.getElementById('bikeOdoImage').click()">
+            📷 Click Picture
+          </button>
+        
+          <small class="hint">
+            Use rear camera. Gallery upload is restricted on most mobile browsers.
+          </small>
+        </div>
+        
+        <style>
+        .custom-camera-btn {
+          display: inline-block;
+          background-color: #007bff;
+          color: white;
+          padding: 8px 14px;
+          border: none;
+          border-radius: 8px;
+          font-size: 1rem;
+          cursor: pointer;
+          transition: background 0.3s;
+        }
+        .custom-camera-btn:hover {
+          background-color: #0056b3;
+        }
+        </style>
+
         </div>
 
         <div class="form-actions">
