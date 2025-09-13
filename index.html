@@ -8,6 +8,65 @@
   />
   <title>NT Woods • Field Check-In</title>
   <link rel="stylesheet" href="styles.css" />
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+.custom-dropdown {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 280px;
+  font-family: Arial, sans-serif;
+}
+
+.custom-dropdown button {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 12px;
+  font-size: 16px;
+  text-align: left;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.custom-dropdown button i {
+  margin-right: 10px;
+}
+
+.dropdown-list {
+  display: none;
+  position: absolute;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #ccc;
+  margin-top: 4px;
+  border-radius: 8px;
+  z-index: 1000;
+}
+
+.dropdown-list div {
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.dropdown-list div:hover {
+  background: #f0f8ff;
+}
+
+.dropdown-list div i {
+  margin-right: 10px;
+  color: navy;
+}
+</style>
+  
 </head>
 <body>
   <header class="app-header">
@@ -44,11 +103,16 @@
 
         <div class="form-row">
           <label for="mode">Mode of Travel</label>
-          <select id="mode" name="mode" required>
-            <option value="">Select</option>
-            <option value="Bike">Bike</option>
-            <option value="Bus">Bus</option>
-          </select>
+          <!-- Custom Dropdown -->
+          <div class="custom-dropdown">
+            <button id="dropdownBtn">
+              <span><i class="fa-solid fa-angle-down"></i> Select</span>
+            </button>
+            <div class="dropdown-list" id="dropdownList">
+              <div data-value="bike"><i class="fa-solid fa-motorcycle"></i> Bike</div>
+              <div data-value="bus"><i class="fa-solid fa-bus"></i> Bus</div>
+            </div>
+          </div>
         </div>
 
         <!-- Bike-only fields -->
@@ -129,5 +193,30 @@
   <footer class="footer">© NT Woods Pvt. Ltd.</footer>
 
   <script src="app.js"></script>
+<script>
+const dropdownBtn = document.getElementById("dropdownBtn");
+const dropdownList = document.getElementById("dropdownList");
+
+dropdownBtn.addEventListener("click", () => {
+  dropdownList.style.display = dropdownList.style.display === "block" ? "none" : "block";
+});
+
+dropdownList.querySelectorAll("div").forEach(item => {
+  item.addEventListener("click", () => {
+    dropdownBtn.innerHTML = `<span>${item.innerHTML}</span>`;
+    dropdownList.style.display = "none";
+    console.log("Selected:", item.dataset.value); 
+    // TODO: send `item.dataset.value` in your form submit
+  });
+});
+
+document.addEventListener("click", e => {
+  if (!e.target.closest(".custom-dropdown")) {
+    dropdownList.style.display = "none";
+  }
+});
+</script>
+
+  
 </body>
 </html>
