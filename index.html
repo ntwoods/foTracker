@@ -59,7 +59,7 @@
           </div>
 
         <div class="form-row">
-          <label for="bikeOdoImage" class="form-label">Odometer Reading Image</label>
+          <label for="bikeOdoImage" class="form-label">🏍️ Bike Reading Image</label>
         
           <!-- Hidden file input -->
           <input 
@@ -136,19 +136,52 @@
           </div>
         </div>
 
-        <!-- Bike-only fields -->
         <div id="bikeCheckoutFields" class="group hidden">
           <div class="form-row">
             <label for="bikeReadingOut">Bike Odometer Reading (End)</label>
             <input id="bikeReadingOut" name="bikeReadingOut" type="number" inputmode="numeric" />
           </div>
 
-          <div class="form-row">
-            <label for="bikeOdoImageOut">Bike Odometer Image (End)</label>
-            <input id="bikeOdoImageOut" name="bikeOdoImageOut" type="file" accept="image/*" capture="environment" />
-            <small class="hint">Use rear camera.</small>
-          </div>
+        <div class="form-row">
+            <label for="bikeOdoImageOut">🏍️Bike Odometer Image (End)</label>      
+          <!-- Hidden file input -->
+          <input 
+            id="bikeOdoImageOut" 
+            name="bikeOdoImageOut"
+            type="file" 
+            accept="image/*" 
+            capture="environment" 
+            style="display: none;"
+          />
+        
+          <!-- Custom button -->
+          <button type="button" class="custom-camera-btn" onclick="document.getElementById('bikeOdoImageOut').click()">
+            📷 Click Picture
+          </button>
+        
+          <small class="hint">
+            Use rear camera. Gallery upload is restricted on most mobile browsers.
+          </small>
         </div>
+        
+        <style>
+        .custom-camera-btn {
+          display: inline-block;
+          background-color: #007bff;
+          color: white;
+          padding: 8px 14px;
+          border: none;
+          border-radius: 8px;
+          font-size: 1rem;
+          cursor: pointer;
+          transition: background 0.3s;
+        }
+        .custom-camera-btn:hover {
+          background-color: #0056b3;
+        }
+        </style>
+
+        
 
         <div class="form-actions">
           <button type="button" id="cancelCheckout" class="btn btn-ghost">Cancel</button>
