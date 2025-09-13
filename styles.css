@@ -116,8 +116,6 @@ input[type="file"]:hover { border-color: var(--brand-2); }
   }
 }
 
-
-<style>
 .custom-camera-btn {
   display: inline-block;
   background-color: #007bff;
@@ -132,4 +130,3 @@ input[type="file"]:hover { border-color: var(--brand-2); }
 .custom-camera-btn:hover {
   background-color: #0056b3;
 }
-</style>
